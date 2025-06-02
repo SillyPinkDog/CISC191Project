@@ -1,15 +1,28 @@
-
+/**
+ * Lead Author(s):
+ * @author Darrin Yun
+ * 
+ * Other contributors:
+ * 
+ * References:
+ * Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented Problem Solving.
+ * Retrieved from https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ * Version/date: v1 5/29/2025
+ * 
+ * Responsibilities of class:
+ * Day stores the user data for a specific day including the calories consumed, cost of eating out, weight, and additional notes.
+ */
 public class Day 
 {
-	private int dayCalories;
-	private double eatOutCost;
-	private double dayWeight;
-	private double mealSum;
-	private String addInfo;
-	private static String dayOfWeek;
+	private int caloriesConsumed; //Day has-a int that holds the calories the user consumed today
+	private double eatOutCost; //Day has-a double that holds the amount the user spent eating out today
+	private double userWeight; //Day has-a double that holds the user's weight today
+	private String comments; //Day has-a String that holds additional info the user might want to add
+	private final String dayOfWeek; //Day has-a String that holds the day of the week mon-sun
 
 	/**
-	 * constructor determines which day of the week the object is when instantiated
+	 * default constructor determines which day of the week the object is when instantiated
 	 * sets the eatOutCost to 0 by default
 	 * @param day represents which day of the week it is
 	 */
@@ -17,6 +30,26 @@ public class Day
 	{
 		dayOfWeek = day;
 		eatOutCost = 0;
+		caloriesConsumed = 0;
+		userWeight = 0;
+		comments = "Add something";
+	}
+	
+	/**
+	 * copy constructor is used when the program is launched and reading from file
+	 * @param day represents which day of the week it is
+	 * @param info additional user info
+	 * @param weight of user that day
+	 * @param cost of eating out that day
+	 * @param calories gained that day
+	 */
+	public Day(String day, String info, double weight, double cost, int calories)
+	{
+		dayOfWeek = day;
+		eatOutCost = cost;
+		caloriesConsumed = calories;
+		userWeight = weight;
+		comments = info;
 	}
 	
 	/**
@@ -25,7 +58,7 @@ public class Day
 	 */
 	public void setCalories(int calories)
 	{
-		dayCalories = calories;
+		caloriesConsumed = calories;
 	}
 	
 	/**
@@ -41,18 +74,9 @@ public class Day
 	 * 
 	 * @param weight is the amount of weight the user is at that day
 	 */
-	public void setWeightGain(double weight)
+	public void setWeight(double weight)
 	{
-		dayWeight = weight;
-	}
-	
-	/**
-	 * 
-	 * @param sum is the recommended caloric intake for the day
-	 */
-	public void setSummary(double sum)
-	{
-		mealSum = sum;
+		userWeight = weight;
 	}
 	
 	/**
@@ -61,7 +85,7 @@ public class Day
 	 */
 	public void setInfo(String info)
 	{
-		addInfo = info;
+		comments = info;
 	}
 	
 	/**
@@ -70,7 +94,7 @@ public class Day
 	 */
 	public int getCalories()
 	{
-		return dayCalories;
+		return caloriesConsumed;
 	}
 	
 	/**
@@ -87,16 +111,7 @@ public class Day
 	 */
 	public double getWeight()
 	{
-		return dayWeight;
-	}
-	
-	/**
-	 * 
-	 * @return the recommended caloric intake for the day
-	 */
-	public double getSummary()
-	{
-		return mealSum;
+		return userWeight;
 	}
 	
 	/**
@@ -105,7 +120,7 @@ public class Day
 	 */
 	public String getInfo()
 	{
-		return addInfo;
+		return comments;
 	}
 	
 	/**
@@ -115,5 +130,14 @@ public class Day
 	public String getDay()
 	{
 		return dayOfWeek;
+	}
+	
+	/**
+	 * @return the data in a day formatted for ease of writing to a file
+	 */
+	public String toString()
+	{
+		return getDay() + "\n" + getInfo() + "\n" + getWeight() + "\n" + getEatOutCost() + "\n" + getCalories()
+		+ "\n";
 	}
 }
